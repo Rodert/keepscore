@@ -10,7 +10,8 @@ Page({
     roundScores: [],
     showAddScoreModal: false,
     selectedPlayerIndex: -1,
-    scoreInput: ''
+    scoreInput: '',
+    isNegative: false
   },
 
   /**
@@ -74,7 +75,8 @@ Page({
     this.setData({
       showAddScoreModal: true,
       selectedPlayerIndex: index,
-      scoreInput: ''
+      scoreInput: '',
+      isNegative: false
     });
   },
 
@@ -85,7 +87,8 @@ Page({
     this.setData({
       showAddScoreModal: false,
       selectedPlayerIndex: -1,
-      scoreInput: ''
+      scoreInput: '',
+      isNegative: false
     });
   },
 
@@ -93,8 +96,34 @@ Page({
    * 分数输入事件
    */
   onScoreInput: function(e) {
+    // 只允许输入数字和小数点
+    const value = e.detail.value;
+    // 只保留数字和小数点
+    const filteredValue = value.replace(/[^\d.]/g, '');
+    // 确保只有一个小数点
+    let formattedValue = '';
+    let hasDecimal = false;
+    
+    for (let i = 0; i < filteredValue.length; i++) {
+      if (filteredValue[i] === '.' && !hasDecimal) {
+        formattedValue += '.';
+        hasDecimal = true;
+      } else if (filteredValue[i] !== '.') {
+        formattedValue += filteredValue[i];
+      }
+    }
+    
     this.setData({
-      scoreInput: e.detail.value
+      scoreInput: formattedValue
+    });
+  },
+  
+  /**
+   * 切换分数正负号
+   */
+  toggleScoreSign: function() {
+    this.setData({
+      isNegative: !this.data.isNegative
     });
   },
 
@@ -102,7 +131,17 @@ Page({
    * 确认添加分数
    */
   confirmAddScore: function() {
-    const score = parseInt(this.data.scoreInput) || 0;
+    // 解析分数并应用正负号
+    const scoreInput = this.data.scoreInput;
+    let score = parseFloat(scoreInput) || 0;
+    
+    // 如果是负数模式，将分数变为负数
+    if (this.data.isNegative) {
+      score = -Math.abs(score);
+    } else {
+      score = Math.abs(score);
+    }
+    
     const index = this.data.selectedPlayerIndex;
     
     if (index >= 0 && index < this.data.roundScores.length) {
@@ -113,7 +152,8 @@ Page({
         roundScores: roundScores,
         showAddScoreModal: false,
         selectedPlayerIndex: -1,
-        scoreInput: ''
+        scoreInput: '',
+        isNegative: false
       });
     }
   },

@@ -68,8 +68,11 @@
       </view>
       <view class="modal-body">
         <view class="player-name">{{gameRecord.players[selectedPlayerIndex].name}}</view>
-        <input class="score-input" type="number" placeholder="输入分数" value="{{scoreInput}}" bindinput="onScoreInput" focus="{{true}}" />
-        <view class="score-tips">提示：赢家输入正数，输家输入负数</view>
+        <view class="score-input-container">
+          <view class="sign-toggle {{isNegative ? 'negative' : 'positive'}}" bindtap="toggleScoreSign">{{isNegative ? '-' : '+'}}</view>
+          <input class="score-input" type="digit" placeholder="输入分数" value="{{scoreInput}}" bindinput="onScoreInput" focus="{{true}}" />
+        </view>
+        <view class="score-tips">提示：点击左侧符号切换正负数，赢家输入正数，输家输入负数</view>
       </view>
       <view class="modal-footer">
         <button class="cancel-btn" bindtap="hideAddScore">取消</button>
