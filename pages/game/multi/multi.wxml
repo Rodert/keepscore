@@ -1,0 +1,69 @@
+<!--pages/game/multi/multi.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">多人计分桌</view>
+    <view class="subtitle">设置游戏参数</view>
+  </view>
+  
+  <view class="settings-section">
+    <view class="setting-card">
+      <view class="setting-title">基本设置</view>
+      
+      <view class="setting-item">
+        <view class="setting-label">玩家人数</view>
+        <view class="setting-control">
+          <view class="number-control">
+            <view class="control-btn {{playerCount <= 2 ? 'disabled' : ''}}" bindtap="decreasePlayerCount">-</view>
+            <view class="control-value">{{playerCount}}</view>
+            <view class="control-btn {{playerCount >= 8 ? 'disabled' : ''}}" bindtap="increasePlayerCount">+</view>
+          </view>
+        </view>
+      </view>
+      
+      <view class="setting-item">
+        <view class="setting-label">初始分数</view>
+        <view class="setting-control">
+          <input class="setting-input" type="number" value="{{initialPoints}}" bindinput="onInitialPointsInput" />
+        </view>
+      </view>
+      
+      <view class="setting-item">
+        <view class="setting-label">单位</view>
+        <view class="setting-control">
+          <picker bindchange="onUnitChange" value="{{unitIndex}}" range="{{units}}">
+            <view class="unit-picker">
+              {{units[unitIndex]}}
+              <image class="dropdown-icon" src="/images/dropdown.png"></image>
+            </view>
+          </picker>
+        </view>
+      </view>
+    </view>
+    
+    <view class="setting-card">
+      <view class="setting-title">玩家设置</view>
+      
+      <view class="player-list">
+        <view class="player-item" wx:for="{{players}}" wx:key="index">
+          <view class="player-number">{{index + 1}}</view>
+          <view class="player-info">
+            <input class="player-name-input" placeholder="玩家{{index + 1}}昵称" value="{{item.name}}" data-index="{{index}}" bindinput="onPlayerNameInput" />
+          </view>
+          <view class="player-actions" wx:if="{{index > 0}}">
+            <view class="delete-btn" data-index="{{index}}" bindtap="removePlayer">×</view>
+          </view>
+        </view>
+        
+        <view class="add-player-btn" bindtap="addPlayer" wx:if="{{players.length < 8}}">
+          <view class="add-icon">+</view>
+          <view class="add-text">添加玩家</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="action-buttons">
+    <button class="cancel-btn" bindtap="cancelSetup">取消</button>
+    <button class="start-btn" bindtap="startGame">开始游戏</button>
+  </view>
+</view>

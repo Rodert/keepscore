@@ -1,0 +1,49 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">麻将计分通</view>
+    <view class="subtitle">开桌</view>
+  </view>
+  
+  <view class="game-modes">
+    <view class="game-mode-card" bindtap="navigateToMultiPlayer">
+      <view class="tag">经典</view>
+      <view class="mode-content">
+        <view class="mode-title">多人计分桌</view>
+        <view class="mode-desc">需所有玩家操作计分</view>
+      </view>
+      <image class="mode-icon" src="/images/multi_player.png"></image>
+    </view>
+    
+    <view class="game-mode-card" bindtap="navigateToSinglePlayer">
+      <view class="mode-content">
+        <view class="mode-title">单人计分桌</view>
+        <view class="mode-desc">只需一个玩家操作计分</view>
+      </view>
+      <image class="mode-icon" src="/images/single_player.png"></image>
+    </view>
+    
+    <view class="game-mode-card" bindtap="navigateToPoolMode">
+      <view class="mode-content">
+        <view class="mode-title">分数池桌</view>
+        <view class="mode-desc">各自从分数池结算或取分</view>
+      </view>
+      <image class="mode-icon" src="/images/pool_mode.png"></image>
+    </view>
+  </view>
+  
+  <view class="recent-games" wx:if="{{recentGames.length > 0}}">
+    <view class="section-title">最近游戏</view>
+    <view class="recent-game-list">
+      <view class="recent-game-item" wx:for="{{recentGames}}" wx:key="id" bindtap="continueGame" data-id="{{item.id}}">
+        <view class="game-info">
+          <view class="game-title">{{item.title}}</view>
+          <view class="game-date">{{item.date}}</view>
+        </view>
+        <view class="game-status">
+          <view class="status-tag {{item.status === '进行中' ? 'status-active' : 'status-completed'}}">{{item.status}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

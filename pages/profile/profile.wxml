@@ -1,0 +1,63 @@
+<!--pages/profile/profile.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">我的</view>
+  </view>
+  
+  <!-- 个人信息区域 -->
+  <view class="user-card">
+    <view class="user-profile">
+      <image class="avatar" src="{{userInfo.avatarUrl || '/images/default_avatar.png'}}"></image>
+      <view class="user-info">
+        <view class="username">{{userInfo.nickName || '点击登录'}}</view>
+        <view class="user-id" wx:if="{{hasUserInfo}}">用户ID: {{userId || '888888'}}</view>
+        <button class="login-btn" wx:if="{{!hasUserInfo}}" bindtap="getUserProfile">登录/注册</button>
+      </view>
+    </view>
+    
+    <view class="user-stats">
+      <view class="stats-item">
+        <view class="stats-value">{{stats.totalGames || 0}}</view>
+        <view class="stats-label">总局数</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-value">{{stats.winRate || '0%'}}</view>
+        <view class="stats-label">胜率</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-value">{{stats.totalScore || 0}}</view>
+        <view class="stats-label">总分</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 功能区域 -->
+  <view class="menu-section">
+    <!-- 转发分享 -->
+    <view class="menu-item" bindtap="shareToFriends">
+      <view class="menu-left">
+        <image class="menu-icon" src="/images/share_icon.png"></image>
+        <view class="menu-text">转发分享</view>
+      </view>
+      <image class="arrow-icon" src="/images/arrow_right.png"></image>
+    </view>
+    
+    <!-- 字体设置 -->
+    <view class="menu-item" bindtap="showFontSettings">
+      <view class="menu-left">
+        <image class="menu-icon" src="/images/font_size.png"></image>
+        <view class="menu-text">字体设置</view>
+      </view>
+      <view class="font-size-preview">
+        <view class="font-size-dot {{fontSize === 'small' ? 'active' : ''}}"></view>
+        <view class="font-size-dot {{fontSize === 'medium' ? 'active' : ''}}"></view>
+        <view class="font-size-dot {{fontSize === 'large' ? 'active' : ''}}"></view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="footer">
+    <view class="version">v1.0.0</view>
+    <view class="copyright">© 2025 麻将计分通</view>
+  </view>
+</view>

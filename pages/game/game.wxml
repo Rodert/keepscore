@@ -1,0 +1,80 @@
+<!--pages/game/game.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">{{gameRecord.title || '麻将计分'}}</view>
+    <view class="subtitle">第{{currentRound}}轮</view>
+  </view>
+  
+  <view class="game-info">
+    <view class="info-item">
+      <view class="info-label">模式</view>
+      <view class="info-value">{{gameRecord.mode === 'multi' ? '多人计分' : gameRecord.mode === 'single' ? '单人计分' : '分数池'}}</view>
+    </view>
+    <view class="info-item">
+      <view class="info-label">初始分</view>
+      <view class="info-value">{{gameRecord.initialPoints}} {{gameRecord.unit}}</view>
+    </view>
+  </view>
+  
+  <view class="score-section">
+    <view class="section-title">本轮分数</view>
+    
+    <view class="player-list">
+      <view class="player-item" wx:for="{{gameRecord.players}}" wx:key="id">
+        <view class="player-info">
+          <view class="player-name">{{item.name}}</view>
+          <view class="player-total-score">总分: {{item.score}} {{gameRecord.unit}}</view>
+        </view>
+        <view class="round-score {{roundScores[index] > 0 ? 'positive' : roundScores[index] < 0 ? 'negative' : ''}}" bindtap="showAddScore" data-index="{{index}}">
+          {{roundScores[index] > 0 ? '+' : ''}}{{roundScores[index]}}
+        </view>
+      </view>
+    </view>
+    
+    <view class="round-actions">
+      <button class="submit-btn" bindtap="submitRound">提交本轮</button>
+    </view>
+  </view>
+  
+  <view class="history-section" wx:if="{{gameRecord.rounds.length > 0}}">
+    <view class="section-title">历史记录</view>
+    
+    <view class="history-list">
+      <view class="history-item" wx:for="{{gameRecord.rounds}}" wx:key="roundNumber">
+        <view class="round-number">第{{item.roundNumber}}轮</view>
+        <view class="round-scores">
+          <view class="round-score-item" wx:for="{{item.scores}}" wx:for-item="score" wx:for-index="playerIndex" wx:key="playerIndex">
+            <view class="player-name">{{gameRecord.players[playerIndex].name}}</view>
+            <view class="score-value {{score > 0 ? 'positive' : score < 0 ? 'negative' : ''}}">
+              {{score > 0 ? '+' : ''}}{{score}}
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="game-actions">
+    <button class="home-btn" bindtap="goHome">返回首页</button>
+    <button class="end-btn" bindtap="endGame">结束游戏</button>
+  </view>
+  
+  <!-- 添加分数模态框 -->
+  <view class="modal" wx:if="{{showAddScoreModal}}">
+    <view class="modal-mask" bindtap="hideAddScore"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <view class="modal-title">添加分数</view>
+      </view>
+      <view class="modal-body">
+        <view class="player-name">{{gameRecord.players[selectedPlayerIndex].name}}</view>
+        <input class="score-input" type="number" placeholder="输入分数" value="{{scoreInput}}" bindinput="onScoreInput" focus="{{true}}" />
+        <view class="score-tips">提示：赢家输入正数，输家输入负数</view>
+      </view>
+      <view class="modal-footer">
+        <button class="cancel-btn" bindtap="hideAddScore">取消</button>
+        <button class="confirm-btn" bindtap="confirmAddScore">确定</button>
+      </view>
+    </view>
+  </view>
+</view>

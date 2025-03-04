@@ -1,0 +1,49 @@
+<!--pages/records/records.wxml-->
+<view class="container">
+  <view class="header">
+    <view class="title">计分记录</view>
+  </view>
+  
+  <view class="tabs">
+    <view class="tab {{currentTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab {{currentTab === 'ongoing' ? 'active' : ''}}" bindtap="switchTab" data-tab="ongoing">进行中</view>
+    <view class="tab {{currentTab === 'completed' ? 'active' : ''}}" bindtap="switchTab" data-tab="completed">已结束</view>
+  </view>
+  
+  <view class="filter-actions">
+    <view class="filter-btn" bindtap="showFilterOptions">
+      <image class="filter-icon" src="/images/filter.png"></image>
+      筛选
+    </view>
+    <view class="delete-btn" bindtap="showDeleteOptions">
+      <image class="delete-icon" src="/images/delete.png"></image>
+      删除
+    </view>
+  </view>
+  
+  <view class="records-list" wx:if="{{filteredRecords.length > 0}}">
+    <view class="record-item" wx:for="{{filteredRecords}}" wx:key="id" bindtap="viewRecordDetail" data-id="{{item.id}}">
+      <view class="record-header">
+        <view class="record-title">{{item.title}}</view>
+        <view class="status-tag {{item.status === '进行中' ? 'status-active' : 'status-completed'}}">{{item.status}}</view>
+      </view>
+      
+      <view class="record-info">
+        <view class="record-date">{{item.date}}</view>
+        <view class="record-mode">{{item.mode}}</view>
+      </view>
+      
+      <view class="record-players">
+        <view class="player" wx:for="{{item.players}}" wx:for-item="player" wx:key="name">
+          <view class="player-name">{{player.name}}</view>
+          <view class="player-score {{player.score > 0 ? 'positive' : player.score < 0 ? 'negative' : ''}}">{{player.score}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <view class="empty-state" wx:else>
+    <image src="/images/empty_records.png"></image>
+    <view class="empty-text">暂无记录</view>
+  </view>
+</view>
