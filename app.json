@@ -10,7 +10,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "麻将计分通",
+    "navigationBarTitleText": "清一色麻将计分器",
     "navigationBarTextStyle": "black"
   },
   "tabBar": {

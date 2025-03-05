@@ -57,7 +57,7 @@
   </view>
   
   <view class="footer">
-    <view class="version">v1.0.0</view>
-    <view class="copyright">© 2025 麻将计分通</view>
+    <view class="version">v1.0.3</view>
+    <view class="copyright">© 2025 清一色麻将计分器</view>
   </view>
 </view>

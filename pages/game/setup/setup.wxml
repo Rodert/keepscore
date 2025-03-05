@@ -10,7 +10,7 @@
   <view class="welcome-section">
     <image class="logo" src="/images/logo.png"></image>
     <view class="welcome-title">欢迎加入</view>
-    <view class="app-name">麻将计分通</view>
+    <view class="app-name">清一色麻将计分器</view>
     <view class="welcome-subtitle">开始您的麻将计分之旅</view>
   </view>
   

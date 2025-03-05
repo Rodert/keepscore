@@ -189,7 +189,7 @@ Page({
    */
   onShareAppMessage: function() {
     return {
-      title: '麻将计分通 - 轻松记录每局分数',
+      title: '清一色麻将计分器 - 轻松记录每局分数',
       path: '/pages/index/index',
       imageUrl: '/images/share_image.png' // 分享图片，可以自定义
     };
@@ -200,7 +200,7 @@ Page({
    */
   onShareTimeline: function() {
     return {
-      title: '麻将计分通 - 轻松记录每局分数',
+      title: '清一色麻将计分器 - 轻松记录每局分数',
       query: '',
       imageUrl: '/images/share_image.png'
     };

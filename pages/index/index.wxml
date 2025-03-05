@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <view class="header">
-    <view class="title">麻将计分通</view>
+    <view class="title">清一色麻将计分器</view>
     <view class="subtitle">开桌</view>
   </view>
   
