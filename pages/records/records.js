@@ -14,6 +14,11 @@ Page({
    */
   onLoad: function(options) {
     this.loadRecords();
+    // 分享朋友圈设置
+    wx.showShareMenu({
+      withShareTicket:true,
+      menus:['shareAppMessage','shareTimeline']
+    })
   },
 
   /**

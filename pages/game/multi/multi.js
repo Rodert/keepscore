@@ -15,6 +15,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    // 分享朋友圈设置
+    wx.showShareMenu({
+      withShareTicket:true,
+      menus:['shareAppMessage','shareTimeline']
+    });
+
     // 初始化玩家列表
     this.initPlayers();
     
